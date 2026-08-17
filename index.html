@@ -104,6 +104,45 @@ tr.sold{opacity:.35}
 .rc-count{color:var(--text2);font-size:10px}
 .import-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .roster-mini{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+
+.chips-right{display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;margin-bottom:10px}
+.chip-t{padding:3px 8px;border:1px solid var(--border);border-radius:5px;font-size:10px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.chip-t .ct-name{font-weight:700;max-width:80px;overflow:hidden;text-overflow:ellipsis}
+.chip-t .ct-cr{color:#4afa8a;font-weight:900;font-size:11px}
+.chip-t .ct-sl{color:var(--text2);font-size:9px}
+.fascia-card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:12px;margin-bottom:10px}
+.fascia-card h4{font-size:13px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.fascia-row{display:flex;align-items:center;justify-content:space-between;padding:4px 6px;font-size:11px;border-bottom:1px solid rgba(255,255,255,.03)}
+.fascia-row:hover{background:rgba(255,255,255,.03)}
+.tag-sel{background:var(--bg);border:1px solid var(--border);color:var(--text2);padding:2px 4px;border-radius:4px;font-size:9px;cursor:pointer;outline:none;min-width:70px}
+.tag-sel:focus{border-color:#F9A825}
+.tag-sel option{background:var(--card)}
+.micro-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-bottom:16px}
+.micro-card{background:var(--card);border-radius:12px;padding:12px;border:1px solid var(--border)}
+.micro-card h4{font-size:13px;margin-bottom:8px}
+.micro-item{font-size:11px;padding:3px 6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.03)}
+.f1-border{border-color:#4afa8a !important}.f2-border{border-color:#F9A825 !important}.f3-border{border-color:#FF9800 !important}.f4-border{border-color:#888 !important}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-bottom:16px}
+
+.dash-section{background:var(--card);border-radius:14px;border:1px solid var(--border);margin-bottom:14px;overflow:hidden}
+.dash-sec-header{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--card),rgba(255,255,255,.02))}
+.dash-search-box{position:relative;min-width:220px}
+.dash-search{background:var(--bg);border:1px solid var(--border);color:#fff;padding:7px 12px;border-radius:8px;font-size:12px;width:100%;outline:none}
+.dash-search:focus{border-color:#4afa8a}
+.dash-sugg{position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--green);border-radius:8px;max-height:200px;overflow-y:auto;z-index:50;margin-top:2px}
+.dash-sugg-item{padding:8px 12px;cursor:pointer;font-size:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.dash-sugg-item:hover{background:rgba(74,250,138,.1)}
+.dash-role-group{padding:2px 12px}
+.dash-player{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
+.dash-player:hover{background:rgba(255,255,255,.03)}
+.dash-player.dp-sold{opacity:.4}
+.dp-info{display:flex;align-items:center;gap:2px;min-width:0;flex:1}
+.dp-name{font-weight:700;font-size:12px;white-space:nowrap}
+.dp-team{color:var(--text2);font-size:10px;margin-left:4px}
+.dp-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dp-ev{color:#4afa8a;font-weight:900;font-size:13px}
+.dp-remove{background:none;border:none;color:var(--red);font-size:11px;cursor:pointer;padding:2px 4px;opacity:.5;transition:opacity .15s}
+.dp-remove:hover{opacity:1}
 </style>
 </head><body>
 <div class="header"><h1><div class="dot"></div>ASTA LIVE 2026/27</h1><span style="color:var(--text2);font-size:11px">A MariPaN <span id="syncStatus" class="sync-dot sync-off"></span></span></div>
@@ -124,11 +163,11 @@ var TEAM_NAMES=["Regal Mici","Gemini 73","Al Francredible Fc","Kairos Km","Cugin
 var BUDGET=350;var MY_ID=5;
 var RC=[{k:"P",n:"POR",c:"#FF9800",max:3},{k:"D",n:"DIF",c:"#2196F3",max:8},{k:"C",n:"CEN",c:"#4CAF50",max:8},{k:"A",n:"ATT",c:"#E91E63",max:6}];
 var PLAYERS=RAW.map(function(p,i){return{id:i,name:p[0],role:p[1],team:p[2],qt:p[3],fm:p[4],vorp:p[5],baseTarget:p[6],baseMax:p[7],tier:p[9],hist:p[10],target:p[6],max:p[7]};});
-var S={teams:TEAM_NAMES.map(function(n,i){return{id:i,name:n}}),purchases:[],mySlots:{P:Array(3).fill(null),D:Array(8).fill(null),C:Array(8).fill(null),A:Array(6).fill(null)},myBudgets:{P:Array(3).fill(""),D:Array(8).fill(""),C:Array(8).fill(""),A:Array(6).fill("")},creditAdj:{}};
+var S={teams:TEAM_NAMES.map(function(n,i){return{id:i,name:n}}),purchases:[],mySlots:{P:Array(3).fill(null),D:Array(8).fill(null),C:Array(8).fill(null),A:Array(6).fill(null)},myBudgets:{P:Array(3).fill(""),D:Array(8).fill(""),C:Array(8).fill(""),A:Array(6).fill("")},creditAdj:{},playerTags:{}};
 var currentTab="registra";
 
-function saveFS(){DOC.set({purchases:S.purchases,mySlots:S.mySlots,myBudgets:S.myBudgets,creditAdj:S.creditAdj}).then(function(){document.getElementById("syncStatus").className="sync-dot sync-on";}).catch(function(e){console.error(e);document.getElementById("syncStatus").className="sync-dot sync-off";});}
-function listenFS(){DOC.onSnapshot(function(doc){if(doc.exists){var d=doc.data();S.purchases=d.purchases||[];if(d.mySlots)S.mySlots=d.mySlots;if(d.myBudgets)S.myBudgets=d.myBudgets;if(d.creditAdj)S.creditAdj=d.creditAdj;recalc();render();document.getElementById("syncStatus").className="sync-dot sync-on";}},function(e){console.error(e);document.getElementById("syncStatus").className="sync-dot sync-off";});}
+function saveFS(){DOC.set({purchases:S.purchases,mySlots:S.mySlots,myBudgets:S.myBudgets,creditAdj:S.creditAdj,playerTags:S.playerTags}).then(function(){document.getElementById("syncStatus").className="sync-dot sync-on";}).catch(function(e){console.error(e);document.getElementById("syncStatus").className="sync-dot sync-off";});}
+function listenFS(){DOC.onSnapshot(function(doc){if(doc.exists){var d=doc.data();S.purchases=d.purchases||[];if(d.mySlots)S.mySlots=d.mySlots;if(d.myBudgets)S.myBudgets=d.myBudgets;if(d.creditAdj)S.creditAdj=d.creditAdj;if(d.playerTags)S.playerTags=d.playerTags;recalc();render();document.getElementById("syncStatus").className="sync-dot sync-on";}},function(e){console.error(e);document.getElementById("syncStatus").className="sync-dot sync-off";});}
 
 function recalc(){var sold=new Set(S.purchases.map(function(p){return p.pid}));var avail=PLAYERS.filter(function(p){return !sold.has(p.id)});var tBL=S.teams.reduce(function(s,t){return s+(BUDGET-tSpent(t.id))},0);var tSL=250-S.purchases.length;var spend=Math.max(0,tBL-tSL);var repl={};RC.forEach(function(r){var rp=avail.filter(function(p){return p.role===r.k}).sort(function(a,b){return b.vorp-a.vorp});var idx=Math.min(r.max*10-1,rp.length-1);repl[r.k]=idx>=0?rp[idx].vorp:0;});var scar={};RC.forEach(function(r){var ac=avail.filter(function(p){return p.role===r.k&&p.vorp>0}).length;var nc=r.max*10-S.purchases.filter(function(p){return PLAYERS[p.pid].role===r.k}).length;scar[r.k]=ac>0?nc/ac:1;});var tv=0;avail.forEach(function(p){p._dv=Math.max(0,p.vorp-repl[p.role])*(1+Math.max(0,scar[p.role]-0.3));tv+=p._dv;});PLAYERS.forEach(function(p){if(sold.has(p.id))return;if(tv>0){p.target=Math.max(1,Math.round(p._dv/tv*spend));p.max=Math.round(p.target*1.25);}p._delta=p.target-p.baseTarget;});}
 function soldSet(){return new Set(S.purchases.map(function(p){return p.pid}));}
@@ -144,13 +183,27 @@ function init(){recalc();listenFS();document.querySelectorAll(".tab").forEach(fu
 function render(){var a=document.getElementById("app");if(currentTab==="registra")a.innerHTML=renderReg();else if(currentTab==="rose")a.innerHTML=renderRose();else if(currentTab==="dashboard")a.innerHTML=renderDash();else if(currentTab==="mia")a.innerHTML=renderMia();else if(currentTab==="listone")a.innerHTML=renderList();else if(currentTab==="liveindex")a.innerHTML=renderLI();bindAll();}
 
 // REGISTRA
-function renderReg(){var chips=S.teams.map(function(t){var c=tPurch(t.id).length;var im=t.id===MY_ID;return '<div class="roster-chip" style="'+(im?"border-color:#F9A825":"")+'"><span style="'+(im?"color:#F9A825":"")+'">'+t.name+'</span><span class="rc-count">'+c+'/25</span></div>'}).join("");return '<div class="roster-mini">'+chips+'</div><div class="input-bar"><input type="text" id="searchP" placeholder="🔍 Cerca giocatore..." autocomplete="off"><select id="selT">'+S.teams.map(function(t){return '<option value="'+t.id+'" '+(t.id===MY_ID?"selected":"")+'>'+t.name+'</option>'}).join("")+'</select><input type="number" id="inPr" placeholder="€" min="1"><button class="btn btn-green" onclick="doReg()">REGISTRA</button><button class="btn btn-red btn-sm" onclick="doUndo()">↩</button></div><div id="sugg" class="suggestions hidden"></div><div class="log">'+S.purchases.slice().reverse().slice(0,25).map(function(p){var pl=PLAYERS[p.pid];return '<div class="log-entry '+(p.price>pl.baseMax?"over":"")+'">#'+(S.purchases.indexOf(p)+1)+' <b>'+pl.name+'</b> ('+pl.role+') → '+S.teams[p.tid].name+' — '+p.price+'cr</div>'}).join("")+'</div>';}
+function renderReg(){var chips=S.teams.map(function(t){var c=tPurch(t.id).length;var cr=BUDGET-tSpent(t.id);var im=t.id===MY_ID;return '<div class="chip-t" style="'+(im?"border-color:#F9A825":"")+'"><span class="ct-name" style="'+(im?"color:#F9A825":"")+'">'+t.name+'</span><span class="ct-cr">'+cr+'</span><span class="ct-sl">'+c+'/25</span></div>'}).join("");return '<div class="chips-right">'+chips+'</div><div class="input-bar"><input type="text" id="searchP" placeholder="🔍 Cerca giocatore..." autocomplete="off"><select id="selT">'+S.teams.map(function(t){return '<option value="'+t.id+'" '+(t.id===MY_ID?"selected":"")+'>'+t.name+'</option>'}).join("")+'</select><input type="number" id="inPr" placeholder="€" min="1"><button class="btn btn-green" onclick="doReg()">REGISTRA</button><button class="btn btn-red btn-sm" onclick="doUndo()">↩</button></div><div id="sugg" class="suggestions hidden"></div><div class="log">'+S.purchases.slice().reverse().slice(0,25).map(function(p){var pl=PLAYERS[p.pid];return '<div class="log-entry '+(p.price>pl.baseMax?"over":"")+'">#'+(S.purchases.indexOf(p)+1)+' <b>'+pl.name+'</b> ('+pl.role+') → '+S.teams[p.tid].name+' — '+p.price+'cr</div>'}).join("")+'</div>';}
 
 // ROSE con svincolo + input crediti recupero
 function renderRose(){return '<div class="teams-grid">'+S.teams.map(function(t){var sp=tSpent(t.id);var tp=tPurch(t.id);var im=t.id===MY_ID;return '<div class="team-card" style="'+(im?"border-color:#F9A825":"")+'"><div class="team-header" '+(im?'style="background:linear-gradient(135deg,var(--card),rgba(249,168,37,.12))"':'')+'><span>'+(im?"⭐ ":"")+t.name+'</span><span><span class="team-budget">'+(BUDGET-sp)+'</span><span style="color:var(--text2);font-size:11px">/'+BUDGET+'</span></span></div><div class="team-slots">'+RC.map(function(r){return '<span class="slot slot-'+r.k+'">'+r.k+tRC(t.id,r.k)+'/'+r.max+'</span>'}).join("")+'<span style="color:var(--text2);font-size:10px;margin-left:auto">'+tp.length+'/25</span></div><div class="roster-list">'+RC.map(function(r){var rp=tp.filter(function(p){return PLAYERS[p.pid].role===r.k});if(!rp.length)return"";return '<div><div class="role-label" style="color:'+r.c+'">'+r.n+'</div>'+rp.map(function(p){var pl=PLAYERS[p.pid];return '<div class="roster-player"><span>'+pl.name+'</span><span class="svincola-box"><span style="color:var(--text2);font-weight:700">'+p.price+'cr</span><button class="svincola-btn" onclick="doSvincola('+p.pid+','+t.id+')">✕</button></span></div>'}).join("")+'</div>'}).join("")+'</div></div>'}).join("")+'</div>';}
 
 // DASHBOARD
-function renderDash(){var sold=soldSet();var av=PLAYERS.filter(function(p){return !sold.has(p.id)});return '<div class="stats-bar">'+S.teams.map(function(t){var s=tSpent(t.id);var im=t.id===MY_ID;return '<div class="stat-card" '+(im?'style="border-color:#F9A825"':'')+'><div style="font-size:10px;font-weight:700;margin-bottom:4px;'+(im?'color:#F9A825':'')+'">'+t.name+'</div><div class="stat-val" style="font-size:16px">'+(BUDGET-s)+'</div><div class="stat-label">'+tPurch(t.id).length+'/25</div></div>'}).join("")+'</div><h3 style="color:#4afa8a;margin:12px 0 8px">🔥 Top disponibili (LIVE)</h3><div class="teams-grid">'+RC.map(function(r){var top=av.filter(function(p){return p.role===r.k}).sort(function(a,b){return b.target-a.target}).slice(0,8);return '<div class="team-card"><div class="team-header" style="background:'+r.c+'22"><span style="color:'+r.c+'">'+r.n+' ('+av.filter(function(p){return p.role===r.k}).length+')</span></div><div class="roster-list">'+top.map(function(p){var d=p._delta||0;var ar=d>2?'<span class="price-up">▲'+d+'</span>':(d<-2?'<span class="price-dn">▼'+Math.abs(d)+'</span>':"");var ev=getEV(p);return '<div class="roster-player"><span>'+p.name+' <span style="color:var(--text2);font-size:10px">'+p.team+'</span></span><span><span style="color:#4afa8a;font-weight:700">€'+p.target+'</span><span class="ev-tag">'+ev.low+'-'+ev.high+'</span>'+ar+'</span></div>'}).join("")+'</div></div>'}).join("")+'</div>';}
+function renderDash(){var sold=soldSet();var av=PLAYERS.filter(function(p){return !sold.has(p.id)});
+var h='<div class="chips-right">'+S.teams.map(function(t){var s=tSpent(t.id);var c=tPurch(t.id).length;var cr=BUDGET-s;var im=t.id===MY_ID;return '<div class="chip-t" style="'+(im?"border-color:#F9A825":"")+'"><span class="ct-name" style="'+(im?"color:#F9A825":"")+'">'+t.name+'</span><span class="ct-cr">'+cr+'</span><span class="ct-sl">'+c+'/25</span></div>'}).join("")+'</div>';
+var secs=[{k:"top",n:"🏆 Top Player",c:"#4afa8a",desc:"I migliori in assoluto"},{k:"titolare",n:"⚡ Titolari",c:"#F9A825",desc:"Titolari sicuri da prendere"},{k:"scommessa",n:"🎲 Scommesse",c:"#FF9800",desc:"Alto rischio, alto rendimento"},{k:"1cr",n:"💰 Gente a 1",c:"#888",desc:"Filler da prendere a 1 credito"}];
+secs.forEach(function(sec){var tagged=PLAYERS.filter(function(p){return S.playerTags[p.id]===sec.k&&!sold.has(p.id)}).sort(function(a,b){return b.target-a.target}).slice(0,10);var bought=PLAYERS.filter(function(p){return S.playerTags[p.id]===sec.k&&sold.has(p.id)});h+='<div class="dash-section" style="border-color:'+sec.c+'"><div class="dash-sec-header"><div><h3 style="color:'+sec.c+';margin:0">'+sec.n+'</h3><span style="color:var(--text2);font-size:10px">'+sec.desc+' — '+tagged.length+' disponibili'+(bought.length>0?', '+bought.length+' acquistati':'')+'</span></div><div class="dash-search-box"><input type="text" class="dash-search" id="dashSearch_'+sec.k+'" placeholder="+ Aggiungi giocatore..." oninput="dashSearchTag(this,\''+sec.k+'\')" autocomplete="off"><div id="dashSugg_'+sec.k+'" class="dash-sugg hidden"></div></div></div>';
+if(tagged.length===0&&bought.length===0){h+='<div style="padding:20px;text-align:center;color:var(--text2);font-size:12px">Cerca e aggiungi giocatori con la barra sopra ☝️</div>';}else{
+// Role groups
+RC.forEach(function(r){var rp=tagged.filter(function(p){return p.role===r.k});var rb=bought.filter(function(p){return PLAYERS[p.pid]?PLAYERS[p.pid].role===r.k:false});if(!rp.length&&!rb.length)return;h+='<div class="dash-role-group"><div class="role-label" style="color:'+r.c+'">'+r.n+'</div>';rp.forEach(function(p){var ev=getEV(p);h+='<div class="dash-player"><span class="dp-info"><span class="slot slot-'+p.role+'" style="font-size:9px;margin-right:4px">'+p.role+'</span><span class="dp-name">'+p.name+'</span><span class="dp-team">'+p.team+' Qt'+p.qt+'</span></span><span class="dp-right"><span class="dp-ev">€'+ev.ev+'</span><span class="ev-tag">'+ev.low+'-'+ev.high+'</span><button class="dp-remove" onclick="removeTag('+p.id+')" title="Rimuovi">✕</button></span></div>';});
+// Show bought players grayed out
+bought.filter(function(bp){var pl=PLAYERS[bp.pid];return pl&&pl.role===r.k}).forEach(function(bp){var pu=S.purchases.find(function(x){return x.pid===bp.pid});if(!pu)return;var pl=PLAYERS[pu.pid];var buyer=S.teams[pu.tid].name;var mine=pu.tid===MY_ID;h+='<div class="dash-player dp-sold"><span class="dp-info"><span class="slot slot-'+pl.role+'" style="font-size:9px;margin-right:4px">'+pl.role+'</span><span class="dp-name">'+pl.name+'</span><span class="dp-team">'+(mine?'✅ MIO '+pu.price+'cr':'❌ '+buyer+' '+pu.price+'cr')+'</span></span><span class="dp-right"><button class="dp-remove" onclick="removeTag('+pl.id+')" title="Rimuovi">✕</button></span></div>';});
+h+='</div>';});
+}h+='</div>';});
+return h;}
+function dashSearchTag(el,tag){var v=el.value.toLowerCase();var sg=document.getElementById("dashSugg_"+tag);if(v.length<2){sg.classList.add("hidden");return;}var sold=soldSet();var already=new Set(Object.keys(S.playerTags).map(Number));var m=PLAYERS.filter(function(p){return !sold.has(p.id)&&!already.has(p.id)&&p.name.toLowerCase().indexOf(v)>=0}).sort(function(a,b){return b.target-a.target}).slice(0,8);if(!m.length){sg.innerHTML='<div class="dash-sugg-item" style="color:var(--text2)">Nessuno trovato</div>';sg.classList.remove("hidden");return;}sg.innerHTML=m.map(function(p){var ev=getEV(p);return '<div class="dash-sugg-item" onmousedown="addTag('+p.id+',\''+tag+'\')"><span><span class="slot slot-'+p.role+'" style="font-size:9px;margin-right:4px">'+p.role+'</span><b>'+p.name+'</b> <span style="color:var(--text2)">'+p.team+' Qt'+p.qt+'</span></span><span style="color:#4afa8a;font-weight:700">€'+ev.ev+'</span></div>'}).join("");sg.classList.remove("hidden");}
+function addTag(pid,tag){S.playerTags[pid]=tag;saveFS();render();}
+function removeTag(pid){delete S.playerTags[pid];saveFS();render();}
 
 // A MARIPAN (splittata: rosa + obiettivi)
 function renderMia(){var sold=soldSet();var myP=tPurch(MY_ID);var spent=tSpent(MY_ID);
